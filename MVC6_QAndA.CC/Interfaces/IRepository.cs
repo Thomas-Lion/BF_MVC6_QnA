@@ -9,5 +9,6 @@ namespace MVC6_QAndA.CC.Interfaces
         public E Update(E entity);
         public E Get(int Id);
         public ICollection<E> GetAll();
+        public int Save();
     }
 }

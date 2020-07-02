@@ -6,8 +6,20 @@ using System.Text;
 
 namespace MVC6_QAndA.DAL.Repositories
 {
-    class QuestionRepository : IQuestionRepository
+    public class QuestionRepository : IQuestionRepository
     {
+        private readonly QAndAContext context;
+
+        public QuestionRepository(QAndAContext context)
+        {
+            this.context = context;
+        }
+
+        public int Save()
+        {
+            return context.SaveChanges();
+        }
+
         public bool Archive(QuestionTO entity)
         {
             throw new NotImplementedException();

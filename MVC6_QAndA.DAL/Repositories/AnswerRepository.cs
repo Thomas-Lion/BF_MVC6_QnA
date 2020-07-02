@@ -6,8 +6,19 @@ using System.Text;
 
 namespace MVC6_QAndA.DAL.Repositories
 {
-    class AnswerRepository : IAnswerRepository
+    public class AnswerRepository : IAnswerRepository
     {
+        private readonly QAndAContext context;
+
+        public AnswerRepository(QAndAContext context)
+        {
+            this.context = context;
+        }
+        public int Save()
+        {
+            return context.SaveChanges();
+        }
+
         public bool Delete(AnswerTO entity)
         {
             throw new NotImplementedException();
