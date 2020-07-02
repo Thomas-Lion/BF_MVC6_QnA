@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace MVC6_QAndA.CC.TransferObject
 {
-    class UserTO
+    public class UserTO
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }

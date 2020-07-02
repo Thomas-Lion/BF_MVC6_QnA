@@ -8,11 +8,11 @@ namespace MVC6_QAndA.DAL
 {
     public class QAndAContext : DbContext
     {
-        public QAndAContext(DbContextOptions<QAndAContext> options) : base(options)
+        public QAndAContext()
         {
         }
 
-        protected QAndAContext()
+        public QAndAContext(DbContextOptions<QAndAContext> options) : base(options)
         {
         }
 
