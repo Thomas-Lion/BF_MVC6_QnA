@@ -4,7 +4,7 @@ using System.Text;
 
 namespace MVC6_QAndA.CC.TransferObject
 {
-    class AnswerTO
+    public class AnswerTO
     {
     }
 }

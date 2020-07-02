@@ -27,7 +27,7 @@ namespace MVC6_QAndA.WEB
         {
             services.AddControllersWithViews();
 
-            services.AddDbContext<QAndAContext>(options => options.UseSqlite(@"Data Source=QAndADb.db;")));
+            services.AddDbContext<QAndAContext>(options => options.UseSqlite(@"Data Source=QAndADb.db;"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
