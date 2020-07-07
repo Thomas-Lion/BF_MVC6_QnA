@@ -4,4 +4,8 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\MVC6_QAndA.CC\MVC6_QAndA.CC.csproj" />
+  </ItemGroup>
+
 </Project>
