@@ -9,13 +9,13 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
 
-namespace MVC6_QAndA.DAL.Tests.Repositories
+namespace MVC6_QAndA.DAL.Tests.Repositories.Questions
 {
     [TestClass]
-    public class Question_ArchiveTests
+    public class Question_GetTests
     {
         [TestMethod]
-        public void Question_ArchiveSuccesfull()
+        public void Question_Get()
         {
             var options = new DbContextOptionsBuilder<QAndAContext>().UseInMemoryDatabase(MethodBase.GetCurrentMethod().Name).Options;
             var context = new QAndAContext(options);
@@ -23,41 +23,28 @@ namespace MVC6_QAndA.DAL.Tests.Repositories
 
             var question = new QuestionTO
             {
-                Questioning = "Gif or Gif ?",
+                Questioning = "How can i make money with that ?",
                 CreationDate = DateTime.Now,
-                State = State.Pending,
+                State = State.Resolved,
                 IsArchived = false,
-                LostSoul = new UserTO { FirstName = "William", LastName = "Shake" }
+                LostSoul = new UserTO { FirstName = "Captain", LastName = "Krabs" }
             };
 
-            QRepo.Insert(question);
+            var added = QRepo.Insert(question);
             QRepo.Save();
+            var result = QRepo.Get(added.Id);
 
-            var result = QRepo.Archive(question);
-            QRepo.Save();
-
-            Assert.AreEqual(true, result);
+            Assert.AreEqual("How can i make money with that ?", result.Questioning);
         }
+
         [TestMethod]
-        public void Question_ArchiveAlreadyArchived()
+        public void Question_Get_NothingToGet()
         {
             var options = new DbContextOptionsBuilder<QAndAContext>().UseInMemoryDatabase(MethodBase.GetCurrentMethod().Name).Options;
             var context = new QAndAContext(options);
             IQuestionRepository QRepo = new QuestionRepository(context);
 
-            var question = new QuestionTO
-            {
-                Questioning = "Crèpes sucré ou salé ?",
-                CreationDate = DateTime.Now,
-                State = State.Pending,
-                IsArchived = true,
-                LostSoul = new UserTO { FirstName = "Top", LastName = "Chef" }
-            };
-
-            var test = QRepo.Insert(question);
-            QRepo.Save();
-
-            Assert.ThrowsException<ArgumentException>(() => QRepo.Archive(test));
+            Assert.ThrowsException<ArgumentException>(() => QRepo.Get(-15));
         }
     }
 }

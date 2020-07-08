@@ -10,7 +10,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 
-namespace MVC6_QAndA.DAL.Tests.Repositories
+namespace MVC6_QAndA.DAL.Tests.Repositories.Questions
 {
     [TestClass]
     public class Question_GetAllTests
@@ -43,17 +43,18 @@ namespace MVC6_QAndA.DAL.Tests.Repositories
                 Questioning = "Why no tracking ?",
                 CreationDate = DateTime.Now,
                 State = State.Pending,
-                IsArchived = false,
+                IsArchived = true,
                 LostSoul = new UserTO { FirstName = "Pro", LastName = "Stalker" }
             };
 
             QRepo.Insert(question1);
             QRepo.Insert(question2);
             QRepo.Insert(question3);
+            QRepo.Save();
 
             var result = QRepo.GetAll();
 
-            Assert.AreEqual(3, result.Count());
+            Assert.AreEqual(2, result.Count());
         }
     }
 }

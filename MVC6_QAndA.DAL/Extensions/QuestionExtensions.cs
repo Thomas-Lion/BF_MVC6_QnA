@@ -11,6 +11,11 @@ namespace MVC6_QAndA.DAL.Extensions
     {
         public static QuestionTO ToTO(this QuestionEF question)
         {
+            if (question is null)
+            {
+                throw new ArgumentNullException(nameof(question));
+            }
+
             var questionTO = new QuestionTO
             {
                 Id = question.Id,
@@ -46,6 +51,31 @@ namespace MVC6_QAndA.DAL.Extensions
                             .Select(x => x.ToEF()).ToList()
             };
             return result;
+        }
+
+        public static QuestionEF UpdateFromDetached(this QuestionEF qAttach, QuestionEF qDetached)
+        {
+            if (qAttach is null)
+                throw new ArgumentNullException();
+
+            if (qDetached is null)
+                throw new NullReferenceException();
+
+            if (qAttach.Id != qDetached.Id)
+                throw new Exception("Cannot update Question because it is not the same ID.");
+
+            if ((qAttach != default) && (qDetached != default))
+            {
+                qAttach.Id = qDetached.Id;
+                qAttach.LostSoul = qDetached.LostSoul;
+                qAttach.IsArchived = qDetached.IsArchived;
+                qAttach.Questioning = qDetached.Questioning;
+                qAttach.Answers = qDetached.Answers;
+                qAttach.CreationDate = qDetached.CreationDate;
+                qAttach.State = qDetached.State;
+            }
+
+            return qAttach;
         }
     }
 }

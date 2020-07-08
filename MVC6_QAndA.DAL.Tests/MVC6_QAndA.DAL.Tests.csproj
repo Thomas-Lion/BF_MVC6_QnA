@@ -20,4 +20,8 @@
     <ProjectReference Include="..\MVC6_QAndA.DAL\MVC6_QAndA.DAL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Repositories\Answers\" />
+  </ItemGroup>
+
 </Project>
