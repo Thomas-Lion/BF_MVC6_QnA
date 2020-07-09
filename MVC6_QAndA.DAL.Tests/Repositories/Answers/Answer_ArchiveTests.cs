@@ -48,9 +48,12 @@ namespace MVC6_QAndA.DAL.Tests.Repositories.Answers
 
             Assert.AreEqual(1, ARepo.GetAll().Count());
 
-            ARepo.Delete(addedAnswer);
+            var deletedAnswer = ARepo.Delete(addedAnswer);
             ARepo.Save();
+            var all = ARepo.GetAll();
 
+            Assert.AreEqual(0, all.Count());
+            Assert.IsTrue(deletedAnswer);
             Assert.IsTrue(ARepo.Get(addedAnswer.Id).IsDeleted);
         }
     }

@@ -21,7 +21,8 @@ namespace MVC6_QAndA.DAL.Extensions
                 Answering = answer.Answering,
                 AnswerTime = answer.AnswerTime,
                 Savior = answer.Savior.ToTO(),
-                QuestionId = answer.QuestionId
+                QuestionId = answer.QuestionId,
+                IsDeleted = answer.IsDeleted
             };
         }
 
@@ -38,8 +39,33 @@ namespace MVC6_QAndA.DAL.Extensions
                 Answering = answer.Answering,
                 AnswerTime = answer.AnswerTime,
                 Savior = answer.Savior.ToEF(),
-                QuestionId = answer.QuestionId
+                QuestionId = answer.QuestionId,
+                IsDeleted = answer.IsDeleted
             };
+        }
+
+        public static AnswerEF UpdateFromDetached(this AnswerEF qAttach, AnswerEF qDetached)
+        {
+            if (qAttach is null)
+                throw new ArgumentNullException();
+
+            if (qDetached is null)
+                throw new NullReferenceException();
+
+            if (qAttach.Id != qDetached.Id)
+                throw new Exception("Cannot update Answer because it is not the same ID.");
+
+            if ((qAttach != default) && (qDetached != default))
+            {
+                qAttach.Id = qDetached.Id;
+                qAttach.Savior = qDetached.Savior;
+                qAttach.IsDeleted = qDetached.IsDeleted;
+                qAttach.Answering = qDetached.Answering;
+                qAttach.AnswerTime = qDetached.AnswerTime;
+                qAttach.QuestionId = qDetached.QuestionId;
+            }
+
+            return qAttach;
         }
     }
 }

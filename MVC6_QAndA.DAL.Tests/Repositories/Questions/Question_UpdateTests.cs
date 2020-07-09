@@ -37,7 +37,7 @@ namespace MVC6_QAndA.DAL.Tests.Repositories.Questions
             var result = QRepo.Update(insertedQuestion);
             QRepo.Save();
 
-            Assert.AreEqual("Stupid Question", result.Questioning);
+            Assert.AreEqual("Stupid Question", QRepo.Get(result.Id).Questioning);
         }
 
         [TestMethod]
@@ -56,7 +56,7 @@ namespace MVC6_QAndA.DAL.Tests.Repositories.Questions
                 IsArchived = false,
                 LostSoul = new UserTO { FirstName = "Stan", LastName = "The Cat" }
             };
-            Assert.ThrowsException<NullReferenceException>(() => QRepo.Update(question));
+            Assert.ThrowsException<ArgumentNullException>(() => QRepo.Update(question));
         }
     }
 }

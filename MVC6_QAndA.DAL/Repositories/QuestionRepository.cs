@@ -52,7 +52,8 @@ namespace MVC6_QAndA.DAL.Repositories
             {
                 throw new ArgumentException();
             }
-            var question = context.Questions.Include(x => x.LostSoul)
+            var question = context.Questions.AsNoTracking()
+                                            .Include(x => x.LostSoul)
                                             .Include(x => x.Answers)
                                             .ThenInclude(x => x.Savior)
                                             .FirstOrDefault(x => x.Id == Id);
@@ -111,15 +112,15 @@ namespace MVC6_QAndA.DAL.Repositories
                 throw new ArgumentException(nameof(entity));
             }
 
-            var updated = Get(entity.Id).ToEF();
-            //context.Questions.FirstOrDefault(e => e.Id == entity.Id);
+            var updated = //Get(entity.Id).ToEF();
+            context.Questions.FirstOrDefault(e => e.Id == entity.Id);
             if (updated != default)
             {
                 updated.UpdateFromDetached(entity.ToEF());
             }
             Save();
 
-            return updated.ToTO();
+            return context.Questions.Update(updated).Entity.ToTO();
         }
 
         public ICollection<QuestionTO> GetArchived()

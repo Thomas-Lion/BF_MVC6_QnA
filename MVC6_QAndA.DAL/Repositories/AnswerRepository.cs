@@ -24,7 +24,25 @@ namespace MVC6_QAndA.DAL.Repositories
 
         public bool Delete(AnswerTO entity)
         {
-            throw new NotImplementedException();
+            if (entity is null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+
+            if (entity.Id <= 0)
+            {
+                throw new ArgumentException(nameof(entity));
+            }
+
+            if (entity.IsDeleted)
+            {
+                throw new ArgumentException(nameof(entity));
+            }
+
+            entity.IsDeleted = true;
+            var result = Update(entity);
+
+            return result != null;
         }
 
         public AnswerTO Get(int Id)
@@ -33,7 +51,8 @@ namespace MVC6_QAndA.DAL.Repositories
             {
                 throw new ArgumentException();
             }
-            var answer = context.Answers.Include(x => x.Savior)
+            var answer = context.Answers.AsNoTracking()
+                                        .Include(x => x.Savior)
                                         .FirstOrDefault(x => x.Id == Id);
             if (answer == null)
             {
@@ -44,7 +63,11 @@ namespace MVC6_QAndA.DAL.Repositories
 
         public ICollection<AnswerTO> GetAll()
         {
-            throw new NotImplementedException();
+            var answers = context.Answers.Where(x => x.IsDeleted == false)
+                                         .Select(x => x.ToTO())
+                                         .ToList();
+
+            return answers;
         }
 
         public AnswerTO Insert(AnswerTO entity)
@@ -69,7 +92,24 @@ namespace MVC6_QAndA.DAL.Repositories
 
         public AnswerTO Update(AnswerTO entity)
         {
-            throw new NotImplementedException();
+            if (entity is null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+
+            if (entity.Id <= 0)
+            {
+                throw new ArgumentException(nameof(entity));
+            }
+
+            var updated = context.Answers.FirstOrDefault(e => e.Id == entity.Id);
+            if (updated != default)
+            {
+                updated.UpdateFromDetached(entity.ToEF());
+            }
+            Save();
+
+            return context.Answers.Update(updated).Entity.ToTO();
         }
     }
 }

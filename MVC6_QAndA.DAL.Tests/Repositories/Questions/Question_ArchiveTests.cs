@@ -36,7 +36,7 @@ namespace MVC6_QAndA.DAL.Tests.Repositories.Questions
             var result = QRepo.Archive(added);
             QRepo.Save();
 
-            Assert.AreEqual(true, result);
+            Assert.IsTrue(QRepo.Get(added.Id).IsArchived);
         }
         [TestMethod]
         public void Question_ArchiveAlreadyArchived()

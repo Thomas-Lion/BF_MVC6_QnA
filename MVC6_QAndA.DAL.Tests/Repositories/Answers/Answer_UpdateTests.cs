@@ -47,12 +47,12 @@ namespace MVC6_QAndA.DAL.Tests.Repositories.Answers
             ARepo.Save();
 
             addedAnswer.Answering = "Can't be right";
-            ARepo.Update(addedAnswer);
+            var updatedAnswer = ARepo.Update(addedAnswer);
             ARepo.Save();
 
             Assert.AreEqual(1, ARepo.GetAll().Count());
             Assert.AreEqual(1, QRepo.Get(addedAnswer.QuestionId).Answers.Count());
-            Assert.AreEqual("Can't be right", addedAnswer.Answering);
+            Assert.AreEqual("Can't be right", ARepo.Get(updatedAnswer.Id).Answering);
         }
     }
 }
