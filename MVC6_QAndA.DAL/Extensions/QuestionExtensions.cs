@@ -24,10 +24,8 @@ namespace MVC6_QAndA.DAL.Extensions
                 IsArchived = question.IsArchived,
                 State = question.State,
                 LostSoul = question.LostSoul.ToTO(),
-                Answers = question.Answers?
-                            .OrderBy(x => x.AnswerTime)
-                            .Select(x => x.ToTO()).ToList()
-            };
+                Answers = question.Answers?.Select(x => x.ToTO()).ToList()
+                };
             return questionTO;
         }
 
@@ -46,9 +44,7 @@ namespace MVC6_QAndA.DAL.Extensions
                 IsArchived = question.IsArchived,
                 State = question.State,
                 LostSoul = question.LostSoul.ToEF(),
-                Answers = question.Answers?
-                            .OrderBy(x => x.AnswerTime)
-                            .Select(x => x.ToEF()).ToList()
+                Answers = question.Answers?.Select(x => x.ToEF()).ToList()
             };
             return result;
         }

@@ -10,25 +10,35 @@ namespace MVC6_QAndA.DAL.Extensions
     {
         public static AnswerTO ToTO(this AnswerEF answer)
         {
+            if (answer is null)
+            {
+                throw new ArgumentNullException(nameof(answer));
+            }
+
             return new AnswerTO
             {
                 Id = answer.Id,
                 Answering = answer.Answering,
                 AnswerTime = answer.AnswerTime,
                 Savior = answer.Savior.ToTO(),
-                Question = answer.Question.ToTO()
+                QuestionId = answer.QuestionId
             };
         }
 
         public static AnswerEF ToEF(this AnswerTO answer)
         {
+            if (answer is null)
+            {
+                throw new ArgumentNullException(nameof(answer));
+            }
+
             return new AnswerEF
             {
                 Id = answer.Id,
                 Answering = answer.Answering,
                 AnswerTime = answer.AnswerTime,
                 Savior = answer.Savior.ToEF(),
-                Question = answer.Question.ToEF()
+                QuestionId = answer.QuestionId
             };
         }
     }

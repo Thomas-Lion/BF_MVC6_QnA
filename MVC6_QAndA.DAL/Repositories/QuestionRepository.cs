@@ -94,6 +94,7 @@ namespace MVC6_QAndA.DAL.Repositories
             {
                 return entity;
             }
+            entity.Answers = new List<AnswerTO>();
             var result = context.Questions.Add(entity.ToEF());
             return result.Entity.ToTO();
         }

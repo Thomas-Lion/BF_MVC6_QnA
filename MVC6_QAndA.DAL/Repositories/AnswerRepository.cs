@@ -1,7 +1,9 @@
 ﻿using MVC6_QAndA.CC.Interfaces;
 using MVC6_QAndA.CC.TransferObject;
+using MVC6_QAndA.DAL.Extensions;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace MVC6_QAndA.DAL.Repositories
@@ -36,7 +38,22 @@ namespace MVC6_QAndA.DAL.Repositories
 
         public AnswerTO Insert(AnswerTO entity)
         {
-            throw new NotImplementedException();
+            if (entity is null)
+            {
+                throw new ArgumentNullException();
+            }
+            if (entity.Id != 0)
+            {
+                return entity;
+            }
+
+            var question = context.Questions.FirstOrDefault(x=>x.Id == entity.QuestionId);
+
+            var result = context.Answers.Add(entity.ToEF());
+            
+            question.Answers.Add(result.Entity);
+            
+            return result.Entity.ToTO();
         }
 
         public AnswerTO Update(AnswerTO entity)
