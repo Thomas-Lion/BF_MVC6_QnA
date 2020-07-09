@@ -1,4 +1,5 @@
-﻿using MVC6_QAndA.CC.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using MVC6_QAndA.CC.Interfaces;
 using MVC6_QAndA.CC.TransferObject;
 using MVC6_QAndA.DAL.Extensions;
 using System;
@@ -28,7 +29,17 @@ namespace MVC6_QAndA.DAL.Repositories
 
         public AnswerTO Get(int Id)
         {
-            throw new NotImplementedException();
+            if (Id <= 0)
+            {
+                throw new ArgumentException();
+            }
+            var answer = context.Answers.Include(x => x.Savior)
+                                        .FirstOrDefault(x => x.Id == Id);
+            if (answer == null)
+            {
+                throw new NullReferenceException();
+            }
+            return answer.ToTO();
         }
 
         public ICollection<AnswerTO> GetAll()

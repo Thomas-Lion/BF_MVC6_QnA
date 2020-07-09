@@ -11,5 +11,6 @@ namespace MVC6_QAndA.BL.Domain
         public string Answering { get; set; }
         public User Savior { get; set; }
         public DateTime AnswerTime { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }

@@ -11,5 +11,6 @@ namespace MVC6_QAndA.CC.TransferObject
         public string Answering { get; set; }
         public UserTO Savior { get; set; }
         public DateTime AnswerTime { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }

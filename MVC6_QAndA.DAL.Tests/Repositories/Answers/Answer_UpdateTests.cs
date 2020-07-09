@@ -13,10 +13,10 @@ using System.Text;
 namespace MVC6_QAndA.DAL.Tests.Repositories.Answers
 {
     [TestClass]
-    public class Answer_InsertTests
+    public class Answer_UpdateTests
     {
         [TestMethod]
-        public void InsertAnswer_CorrectFormat()
+        public void UpdateAnswer_Correct()
         {
             var options = new DbContextOptionsBuilder<QAndAContext>().UseInMemoryDatabase(MethodBase.GetCurrentMethod().Name).Options;
             var context = new QAndAContext(options);
@@ -46,27 +46,13 @@ namespace MVC6_QAndA.DAL.Tests.Repositories.Answers
             var addedAnswer = ARepo.Insert(answer);
             ARepo.Save();
 
-            Assert.AreEqual(1,addedAnswer.QuestionId);
-            Assert.AreEqual(1,QRepo.Get(addedAnswer.QuestionId).Answers.Count());
-            Assert.AreEqual("No shit Sherlock", addedAnswer.Answering);
-        }
-        
-        [TestMethod]
-        public void InsertAnswer_NonExistingQuestion()
-        {
-            var options = new DbContextOptionsBuilder<QAndAContext>().UseInMemoryDatabase(MethodBase.GetCurrentMethod().Name).Options;
-            var context = new QAndAContext(options);
-            IAnswerRepository ARepo = new AnswerRepository(context);
-                        
-            var answer = new AnswerTO
-            {
-                Answering = "No shit Sherlock",
-                AnswerTime = DateTime.Now.AddHours(1),
-                QuestionId = 20,
-                Savior = new UserTO { FirstName = "Dr", LastName = "Watson" }
-            };
+            addedAnswer.Answering = "Can't be right";
+            ARepo.Update(addedAnswer);
+            ARepo.Save();
 
-            Assert.ThrowsException<NullReferenceException>(()=>ARepo.Insert(answer));
+            Assert.AreEqual(1, ARepo.GetAll().Count());
+            Assert.AreEqual(1, QRepo.Get(addedAnswer.QuestionId).Answers.Count());
+            Assert.AreEqual("Can't be right", addedAnswer.Answering);
         }
     }
 }

@@ -13,10 +13,10 @@ using System.Text;
 namespace MVC6_QAndA.DAL.Tests.Repositories.Answers
 {
     [TestClass]
-    public class Answer_InsertTests
+    public class Answer_ArchiveTests
     {
         [TestMethod]
-        public void InsertAnswer_CorrectFormat()
+        public void ArchiveAnswer_Correct()
         {
             var options = new DbContextOptionsBuilder<QAndAContext>().UseInMemoryDatabase(MethodBase.GetCurrentMethod().Name).Options;
             var context = new QAndAContext(options);
@@ -25,11 +25,11 @@ namespace MVC6_QAndA.DAL.Tests.Repositories.Answers
 
             var question = new QuestionTO
             {
-                Questioning = "Maybe it's working",
+                Questioning = "Not hungry",
                 CreationDate = DateTime.Now,
                 State = State.Pending,
                 IsArchived = false,
-                LostSoul = new UserTO { FirstName = "Call me", LastName = "Kevin" }
+                LostSoul = new UserTO { FirstName = "Don't wanna", LastName = "Eat" }
             };
 
             var addedQuestion = QRepo.Insert(question);
@@ -37,36 +37,21 @@ namespace MVC6_QAndA.DAL.Tests.Repositories.Answers
 
             var answer = new AnswerTO
             {
-                Answering = "No shit Sherlock",
+                Answering = "must be the donuts",
                 AnswerTime = DateTime.Now.AddHours(1),
                 QuestionId = addedQuestion.Id,
-                Savior = new UserTO { FirstName = "Dr", LastName = "Watson" }
+                Savior = new UserTO { FirstName = "Any", LastName = "Officer" }
             };
 
             var addedAnswer = ARepo.Insert(answer);
             ARepo.Save();
 
-            Assert.AreEqual(1,addedAnswer.QuestionId);
-            Assert.AreEqual(1,QRepo.Get(addedAnswer.QuestionId).Answers.Count());
-            Assert.AreEqual("No shit Sherlock", addedAnswer.Answering);
-        }
-        
-        [TestMethod]
-        public void InsertAnswer_NonExistingQuestion()
-        {
-            var options = new DbContextOptionsBuilder<QAndAContext>().UseInMemoryDatabase(MethodBase.GetCurrentMethod().Name).Options;
-            var context = new QAndAContext(options);
-            IAnswerRepository ARepo = new AnswerRepository(context);
-                        
-            var answer = new AnswerTO
-            {
-                Answering = "No shit Sherlock",
-                AnswerTime = DateTime.Now.AddHours(1),
-                QuestionId = 20,
-                Savior = new UserTO { FirstName = "Dr", LastName = "Watson" }
-            };
+            Assert.AreEqual(1, ARepo.GetAll().Count());
 
-            Assert.ThrowsException<NullReferenceException>(()=>ARepo.Insert(answer));
+            ARepo.Delete(addedAnswer);
+            ARepo.Save();
+
+            Assert.IsTrue(ARepo.Get(addedAnswer.Id).IsDeleted);
         }
     }
 }

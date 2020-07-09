@@ -11,5 +11,6 @@ namespace MVC6_QAndA.DAL.Entities
         public string Answering { get; set; }
         public UserEF Savior { get; set; }
         public DateTime AnswerTime { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }
