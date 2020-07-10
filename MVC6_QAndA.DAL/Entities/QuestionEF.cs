@@ -11,7 +11,7 @@ namespace MVC6_QAndA.DAL.Entities
         public string Questioning { get; set; }
         public bool IsArchived { get; set; }
         public DateTime CreationDate { get; set; }
-        public UserEF LostSoul { get; set; }
+        public string LostSoulId { get; set; }
         public ICollection<AnswerEF> Answers { get; set; }
         public State State { get; set; }
     }

@@ -52,7 +52,6 @@ namespace MVC6_QAndA.DAL.Repositories
                 throw new ArgumentException();
             }
             var answer = context.Answers.AsNoTracking()
-                                        .Include(x => x.Savior)
                                         .FirstOrDefault(x => x.Id == Id);
             if (answer == null)
             {

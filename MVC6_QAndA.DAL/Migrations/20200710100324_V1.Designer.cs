@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MVC6_QAndA.DAL.Migrations
 {
     [DbContext(typeof(QAndAContext))]
-    [Migration("20200710093330_IdentityTest")]
-    partial class IdentityTest
+    [Migration("20200710100324_V1")]
+    partial class V1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -46,8 +46,6 @@ namespace MVC6_QAndA.DAL.Migrations
 
                     b.HasIndex("QuestionEFId");
 
-                    b.HasIndex("SaviorId");
-
                     b.ToTable("Answers");
                 });
 
@@ -73,8 +71,6 @@ namespace MVC6_QAndA.DAL.Migrations
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("LostSoulId");
 
                     b.ToTable("Questions");
                 });
@@ -282,17 +278,6 @@ namespace MVC6_QAndA.DAL.Migrations
                     b.HasOne("MVC6_QAndA.DAL.Entities.QuestionEF", null)
                         .WithMany("Answers")
                         .HasForeignKey("QuestionEFId");
-
-                    b.HasOne("MVC6_QAndA.DAL.Entities.UserEF", "Savior")
-                        .WithMany()
-                        .HasForeignKey("SaviorId");
-                });
-
-            modelBuilder.Entity("MVC6_QAndA.DAL.Entities.QuestionEF", b =>
-                {
-                    b.HasOne("MVC6_QAndA.DAL.Entities.UserEF", "LostSoul")
-                        .WithMany("Questions")
-                        .HasForeignKey("LostSoulId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

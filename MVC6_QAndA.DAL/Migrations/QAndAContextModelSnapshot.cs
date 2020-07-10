@@ -44,8 +44,6 @@ namespace MVC6_QAndA.DAL.Migrations
 
                     b.HasIndex("QuestionEFId");
 
-                    b.HasIndex("SaviorId");
-
                     b.ToTable("Answers");
                 });
 
@@ -71,8 +69,6 @@ namespace MVC6_QAndA.DAL.Migrations
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("LostSoulId");
 
                     b.ToTable("Questions");
                 });
@@ -280,17 +276,6 @@ namespace MVC6_QAndA.DAL.Migrations
                     b.HasOne("MVC6_QAndA.DAL.Entities.QuestionEF", null)
                         .WithMany("Answers")
                         .HasForeignKey("QuestionEFId");
-
-                    b.HasOne("MVC6_QAndA.DAL.Entities.UserEF", "Savior")
-                        .WithMany()
-                        .HasForeignKey("SaviorId");
-                });
-
-            modelBuilder.Entity("MVC6_QAndA.DAL.Entities.QuestionEF", b =>
-                {
-                    b.HasOne("MVC6_QAndA.DAL.Entities.UserEF", "LostSoul")
-                        .WithMany("Questions")
-                        .HasForeignKey("LostSoulId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

@@ -53,9 +53,7 @@ namespace MVC6_QAndA.DAL.Repositories
                 throw new ArgumentException();
             }
             var question = context.Questions.AsNoTracking()
-                                            .Include(x => x.LostSoul)
                                             .Include(x => x.Answers)
-                                            .ThenInclude(x => x.Savior)
                                             .FirstOrDefault(x => x.Id == Id);
             if (question == null)
             {

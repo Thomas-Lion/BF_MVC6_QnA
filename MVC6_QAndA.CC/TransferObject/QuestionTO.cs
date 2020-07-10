@@ -12,6 +12,7 @@ namespace MVC6_QAndA.CC.TransferObject
         public bool IsArchived { get; set; }
         public DateTime CreationDate { get; set; }
         public UserTO LostSoul { get; set; }
+        public string LostSoulId { get; set; }
         public ICollection<AnswerTO> Answers { get; set; }
         public State State { get; set; }
     }

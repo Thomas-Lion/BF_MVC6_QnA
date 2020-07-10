@@ -20,7 +20,7 @@ namespace MVC6_QAndA.DAL.Extensions
                 Id = answer.Id,
                 Answering = answer.Answering,
                 AnswerTime = answer.AnswerTime,
-                Savior = answer.Savior.ToTO(),
+                SaviorId = answer.SaviorId,
                 QuestionId = answer.QuestionId,
                 IsDeleted = answer.IsDeleted
             };
@@ -38,7 +38,7 @@ namespace MVC6_QAndA.DAL.Extensions
                 Id = answer.Id,
                 Answering = answer.Answering,
                 AnswerTime = answer.AnswerTime,
-                Savior = answer.Savior.ToEF(),
+                SaviorId = answer.SaviorId,
                 QuestionId = answer.QuestionId,
                 IsDeleted = answer.IsDeleted
             };
@@ -58,7 +58,7 @@ namespace MVC6_QAndA.DAL.Extensions
             if ((qAttach != default) && (qDetached != default))
             {
                 qAttach.Id = qDetached.Id;
-                qAttach.Savior = qDetached.Savior;
+                qAttach.SaviorId = qDetached.SaviorId;
                 qAttach.IsDeleted = qDetached.IsDeleted;
                 qAttach.Answering = qDetached.Answering;
                 qAttach.AnswerTime = qDetached.AnswerTime;

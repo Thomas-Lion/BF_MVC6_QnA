@@ -25,7 +25,7 @@ namespace MVC6_QAndA.DAL.Extensions
             {
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                Questions = user.Questions?.Select(x => x.ToEF()).ToList()
+                //Questions = user.Questions?.Select(x => x.ToEF()).ToList()
             };
         }
     }

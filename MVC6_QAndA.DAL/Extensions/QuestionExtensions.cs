@@ -23,7 +23,7 @@ namespace MVC6_QAndA.DAL.Extensions
                 CreationDate = question.CreationDate,
                 IsArchived = question.IsArchived,
                 State = question.State,
-                LostSoul = question.LostSoul.ToTO(),
+                LostSoulId = question.LostSoulId,
                 Answers = question.Answers?.Select(x => x.ToTO()).ToList()
                 };
             return questionTO;
@@ -43,7 +43,7 @@ namespace MVC6_QAndA.DAL.Extensions
                 CreationDate = question.CreationDate,
                 IsArchived = question.IsArchived,
                 State = question.State,
-                LostSoul = question.LostSoul.ToEF(),
+                LostSoulId = question.LostSoulId,
                 Answers = question.Answers?.Select(x => x.ToEF()).ToList()
             };
             return result;
@@ -63,7 +63,7 @@ namespace MVC6_QAndA.DAL.Extensions
             if ((qAttach != default) && (qDetached != default))
             {
                 qAttach.Id = qDetached.Id;
-                qAttach.LostSoul = qDetached.LostSoul;
+                qAttach.LostSoulId = qDetached.LostSoulId;
                 qAttach.IsArchived = qDetached.IsArchived;
                 qAttach.Questioning = qDetached.Questioning;
                 qAttach.Answers = qDetached.Answers;
