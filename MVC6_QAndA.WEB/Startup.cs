@@ -13,6 +13,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MVC6_QAndA.DAL;
 using MVC6_QAndA.DAL.Entities;
+using MVC6_QAndA.CC.Interfaces;
+using MVC6_QAndA.DAL.Repositories;
 
 namespace MVC6_QAndA.WEB
 {
@@ -35,7 +37,7 @@ namespace MVC6_QAndA.WEB
 
             services.AddIdentity<UserEF, UserRoleEF>(options =>
             {
-                options.Password.RequiredLength = 8;
+                options.Password.RequiredLength = 6;
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireUppercase = true;
                 options.User.RequireUniqueEmail = true;
@@ -47,6 +49,10 @@ namespace MVC6_QAndA.WEB
                     .AddDefaultUI()
                     .AddEntityFrameworkStores<QAndAContext>()
                     .AddDefaultTokenProviders();
+
+            services.AddTransient<IQuestionRepository, QuestionRepository>();
+            services.AddTransient<IAnswerRepository, AnswerRepository>();
+            //services.AddTransient<IAskUC, AskUC>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
