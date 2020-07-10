@@ -1,18 +1,20 @@
-﻿using Microsoft.EntityFrameworkCore;
-using MVC6_QAndA.DAL.Entities;
+﻿using MVC6_QAndA.DAL.Entities;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace MVC6_QAndA.DAL
 {
-    public class QAndAContext : DbContext
+    public class QAndAContext : IdentityDbContext<UserEF ,IdentityRole, string>
     {
-        public QAndAContext()
-        {
-        }
+        public QAndAContext() {}
 
-        public QAndAContext(DbContextOptions<QAndAContext> options) : base(options)
+        //public QAndAContext(DbContextOptions<QAndAContext> options) : base(options)
+        //{
+        //}
+
+        public QAndAContext(DbContextOptions options) : base(options)
         {
         }
 

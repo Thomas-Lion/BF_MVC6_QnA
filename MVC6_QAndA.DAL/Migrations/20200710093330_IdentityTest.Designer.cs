@@ -3,14 +3,16 @@ using System;
 using MVC6_QAndA.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MVC6_QAndA.DAL.Migrations
 {
     [DbContext(typeof(QAndAContext))]
-    partial class QAndAContextModelSnapshot : ModelSnapshot
+    [Migration("20200710093330_IdentityTest")]
+    partial class IdentityTest
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
