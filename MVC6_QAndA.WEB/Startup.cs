@@ -8,11 +8,11 @@ using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
-using MVC6_QAndA.WEB.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MVC6_QAndA.DAL;
+using MVC6_QAndA.DAL.Entities;
 
 namespace MVC6_QAndA.WEB
 {
@@ -29,12 +29,24 @@ namespace MVC6_QAndA.WEB
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<QAndAContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<QAndAContext>();
+               options.UseSqlite(@"Data Source = C:\Users\Thomas\source\repos\MVC6_QAndA\MVC6_QAndA.DAL\QAndADb.db"));
             services.AddControllersWithViews();
             services.AddRazorPages();
+
+            services.AddIdentity<UserEF, UserRoleEF>(options =>
+            {
+                options.Password.RequiredLength = 8;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = true;
+                options.User.RequireUniqueEmail = true;
+                options.SignIn.RequireConfirmedEmail = false;
+            })
+                    .AddRoleManager<RoleManager<UserRoleEF>>()
+                    .AddUserManager<UserManager<UserEF>>()
+                    .AddSignInManager()
+                    .AddDefaultUI()
+                    .AddEntityFrameworkStores<QAndAContext>()
+                    .AddDefaultTokenProviders();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

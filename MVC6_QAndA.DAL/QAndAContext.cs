@@ -6,15 +6,11 @@ using System;
 
 namespace MVC6_QAndA.DAL
 {
-    public class QAndAContext : IdentityDbContext<UserEF ,IdentityRole, string>
+    public class QAndAContext : IdentityDbContext<UserEF, UserRoleEF, string>
     {
-        public QAndAContext() {}
+        public QAndAContext() { }
 
-        //public QAndAContext(DbContextOptions<QAndAContext> options) : base(options)
-        //{
-        //}
-
-        public QAndAContext(DbContextOptions options) : base(options)
+        public QAndAContext(DbContextOptions<QAndAContext> options) : base(options)
         {
         }
 

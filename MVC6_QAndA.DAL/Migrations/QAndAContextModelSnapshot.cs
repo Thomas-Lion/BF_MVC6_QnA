@@ -143,7 +143,7 @@ namespace MVC6_QAndA.DAL.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
+            modelBuilder.Entity("MVC6_QAndA.DAL.Entities.UserRoleEF", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("TEXT");
@@ -280,7 +280,7 @@ namespace MVC6_QAndA.DAL.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                    b.HasOne("MVC6_QAndA.DAL.Entities.UserRoleEF", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -307,7 +307,7 @@ namespace MVC6_QAndA.DAL.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                    b.HasOne("MVC6_QAndA.DAL.Entities.UserRoleEF", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
